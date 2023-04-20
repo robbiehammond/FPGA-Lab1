@@ -88,7 +88,11 @@ BEGIN
                 s1_clock_count <= 0;
 
             elsif s1 = '1' then
-                if s1_int = '0' then -- if s1 actually changed (not just reading from prev cycle)
+                -- As implemented, if s1 goes high at all when override is high, that car isn't counted.
+                if override = '1' then 
+                    regEnable <= '0';
+                    car_change <= "00000";
+                elsif s1_int = '0' then -- if s1 actually changed (not just reading from prev cycle)
                     s1_clock_count <= 0;
                     regEnable <= '1';
                     car_change <= "00001";
