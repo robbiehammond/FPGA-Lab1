@@ -67,7 +67,8 @@ constant NUM_BITS : INTEGER := 5;
     SIGNAL regEnable : STD_LOGIC := '1';
     SIGNAL regClear : STD_LOGIC := '0';
 
-    SIGNAL clock_count : INTEGER := 0;
+    SIGNAL s1_clock_count : INTEGER := 0;
+    SIGNAL s2_clock_count : INTEGER := 0;
 
 BEGIN
     alu5 : alu_n PORT MAP(number_cars, car_change, alu_function, alu_out_int);
@@ -84,11 +85,11 @@ BEGIN
             if s1 = '0' and s2 = '0' then
                 regEnable <= '0';
                 car_change <= "00000";
-                clock_count <= 0;
+                s1_clock_count <= 0;
 
             elsif s1 = '1' then
                 if s1_int = '0' then -- if s1 actually changed (not just reading from prev cycle)
-                    clock_count <= 0;
+                    s1_clock_count <= 0;
                     regEnable <= '1';
                     car_change <= "00001";
                     alu_function <= "110";
@@ -110,27 +111,35 @@ BEGIN
 
                     end if;
                 else  -- if it already was 1, don't do anything special
-                    clock_count <= clock_count + 1;
-                    if clock_count = 3 then
-                        clock_count <= 0;
+                    s1_clock_count <= s1_clock_count + 1;
+                    if s1_clock_count = 3 then -- takes about 3 clock ticks for everything to propogate.
+                        s1_clock_count <= 0;
                         regEnable <= '0';
                     end if;
                 end if;
 
             elsif s2 = '1' then
-                regEnable <= '1';
-                car_change <= "00001";
-                alu_function <= "110";
-                if State = Lot_Empty then
-                    null;
-                elsif State = Cars_In_Lot then
-                    if number_cars = "00001" then
-                        State <= Lot_Empty;
+                if s2_int = '0' then -- if s2 actually changed
+                    regEnable <= '1';
+                    car_change <= "00001";
+                    alu_function <= "111";
+                    if State = Lot_Empty then
+                        null;
+                    elsif State = Cars_In_Lot then
+                        if number_cars = "00001" then
+                            State <= Lot_Empty;
+                        end if;
+                    elsif State = Lot_Full then
+                        State <= Cars_In_Lot;
+                    elsif State = Lot_Closed then
+                        null;
                     end if;
-                elsif State = Lot_Full then
-                    State <= Cars_In_Lot;
-                elsif State = Lot_Closed then
-                    null;
+                else -- if already was 1, we've already considered this change
+                    s2_clock_count <= s2_clock_count + 1;
+                    if s2_clock_count = 3 then
+                        s2_clock_count <= 0;
+                        regEnable <= '0';
+                    end if;
                 end if;
             
             end if;
@@ -157,6 +166,7 @@ BEGIN
                 when others => 
             end case;
             s1_int <= s1;
+            s2_int <= s2;
             alu_out <= alu_out_int;
             number_cars_int <= reg_out_int;
             number_cars <= number_cars_int;

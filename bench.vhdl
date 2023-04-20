@@ -65,6 +65,7 @@ PROCESS
     BEGIN
         stop <= '1' after 10 ns, '0' after 20 ns;
         s1 <= '1' after 30 ns, '0' after 100 ns, '1' after 150 ns, '0' after 200 ns;
+        s2 <= '1' after 300 ns, '0' after 400 ns;
     wait;
     END PROCESS;
 END behavior;
