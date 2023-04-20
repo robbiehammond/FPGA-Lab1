@@ -61,12 +61,17 @@ CLOCK:
 clk <=  '1' after 10 ns when clk = '0' else
         '0' after 10 ns when clk = '1';
 
+SIGNAL1:
+s1 <=  '1' after 40 ns when s1 = '0' else
+        '0' after 40 ns when s1 = '1';
+
+
 PROCESS
     BEGIN
-        stop <= '1' after 10 ns, '0' after 20 ns;
-        s1 <= '1' after 30 ns, '0' after 100 ns, '1' after 150 ns, '0' after 200 ns, '1' after 550 ns, '0' after 700 ns;
-        s2 <= '1' after 300 ns, '0' after 400 ns;
-        override <= '1' after 500 ns, '0' after 600 ns;
+        -- stop <= '1' after 10 ns, '0' after 20 ns;
+        -- s1 <= '1' after 30 ns, '0' after 100 ns, '1' after 150 ns, '0' after 200 ns, '1' after 550 ns, '0' after 700 ns, '1' after 740 ns, '0' after 780 ns, '1' after 820 ns, '0' after 840 ns, '1' after 880 ns, '0' after 920 ns;
+        --s2 <= '1' after 300 ns, '0' after 400 ns;
+        --override <= '1' after 500 ns, '0' after 600 ns;
     wait;
     END PROCESS;
 END behavior;
