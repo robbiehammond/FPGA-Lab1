@@ -19,8 +19,7 @@ COMPONENT controller
         clk : IN STD_LOGIC;
 
         override : IN STD_LOGIC; 
-        start : IN STD_LOGIC; -- when high, things happen normally.
-        stop : IN STD_LOGIC; -- when high, lot_closed is high.
+        stop : IN STD_LOGIC;
 
         lot_closed_signal : OUT STD_LOGIC;  -- is parking lot even open
         lot_open_signal: OUT STD_LOGIC;
@@ -35,14 +34,12 @@ COMPONENT controller
 END COMPONENT;
 
 
-SIGNAL s1 : STD_LOGIC :=  '0';
+SIGNAL s1 : STD_LOGIC := '0';
 SIGNAL s2 :STD_LOGIC := '0';  -- 1 when car leaves, 0 other times
-SIGNAL closed : STD_LOGIC;  -- is parking lot even open
 SIGNAL clk : STD_LOGIC := '0';
 SIGNAL override : STD_LOGIC;
 
-SIGNAL start :STD_LOGIC;
-SIGNAL stop : STD_LOGIC;
+SIGNAL stop :STD_LOGIC;
 SIGNAL lot_closed : STD_LOGIC;
 SIGNAL lot_open : STD_LOGIC;
 SIGNAL lot_full: STD_LOGIC;
@@ -51,13 +48,13 @@ SIGNAL gate_up : STD_LOGIC;
 SIGNAL gate_down : STD_LOGIC;
 
 
-SIGNAL count : STD_LOGIC_VECTOR(4 downto 0) := "00000";
+SIGNAL count : STD_LOGIC_VECTOR(4 downto 0);
 
 
 BEGIN 
 
     uut: controller PORT MAP (
-        s1, s2, clk, override, start, stop, lot_closed, lot_open, lot_full, gate_up, gate_down, count
+        s1, s2, clk, override, stop, lot_closed, lot_open, lot_full, gate_up, gate_down, count
     );
 
 CLOCK:
@@ -66,6 +63,8 @@ clk <=  '1' after 10 ns when clk = '0' else
 
 PROCESS
     BEGIN
+        stop <= '1' after 10 ns, '0' after 20 ns;
+        s1 <= '1' after 30 ns, '0' after 100 ns, '1' after 150 ns, '0' after 200 ns;
     wait;
     END PROCESS;
 END behavior;

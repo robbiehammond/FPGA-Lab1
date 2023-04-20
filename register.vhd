@@ -12,6 +12,8 @@ END reg_5;
 
 ARCHITECTURE reg5_desc OF reg_5 IS
 
+    SIGNAL amount_int: STD_LOGIC_VECTOR(4 downto 0) := "00000"; -- The amount currently being held
+
 BEGIN
     process(clk, clear)
     begin
