@@ -69,12 +69,12 @@ BEGIN
     );
 
 CLOCK:
-clk <=  '1' after 10 ns when clk = '0' else
-        '0' after 10 ns when clk = '1';
+clk <=  '1' after 500 us when clk = '0' else
+        '0' after 500 us when clk = '1';
 
 SIGNAL1:
-s1 <=  '1' after 40 ns when s1 = '0' else
-        '0' after 40 ns when s1 = '1';
+s1 <=  '1' after 40 ms when s1 = '0' else
+        '0' after 40 ms when s1 = '1';
 
 
 PROCESS
@@ -87,4 +87,7 @@ PROCESS
     END PROCESS;
 END behavior;
 
-
+CONFIGURATION cont_tb_cfg OF test_bench IS
+    FOR behavior 
+    END FOR;
+END CONFIGURATION;

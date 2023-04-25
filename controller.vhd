@@ -77,6 +77,11 @@ constant NUM_BITS : INTEGER := 5;
 BEGIN
     alu5 : alu_n PORT MAP(number_cars, car_change, alu_function, alu_out_int);
     reg : reg_5 PORT MAP(alu_out, reg_out_int, clk, regEnable, regClear);
+    count_0 <= (reg_out_int(0));
+    count_1 <= reg_out_int(1);
+    count_2 <= reg_out_int(2);
+    count_3 <= reg_out_int(3);
+    count_4 <= reg_out_int(4);
     PROCESS (clk)
         BEGIN
             if stop = '1' then
@@ -186,11 +191,7 @@ BEGIN
             alu_out <= alu_out_int;
             number_cars_int <= reg_out_int;
             number_cars <= number_cars_int;
-            count_0 <= (reg_out_int(0));
-            count_1 <= reg_out_int(1);
-            count_2 <= reg_out_int(2);
-            count_3 <= reg_out_int(3);
-            count_4 <= reg_out_int(4);
     END PROCESS;
 END controller_arch;
+
 
