@@ -19,8 +19,7 @@ BEGIN
     begin
         if enable = '1' then
             d_out <= d_in;
-        end if;
-        if clear = '1' then
+        elsif clear = '1' then
             d_out <= "00000";
         end if;
     end process;

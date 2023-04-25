@@ -23,10 +23,7 @@ COMPONENT controller
 
         lot_closed_signal : OUT STD_LOGIC;  -- is parking lot even open
         lot_open_signal: OUT STD_LOGIC;
-        lot_full_signal: OUT STD_LOGIC;
-
-        gate_up : OUT STD_LOGIC;
-        gate_down : OUT STD_LOGIC
+        lot_full_signal: OUT STD_LOGIC
 
         --count : OUT STD_LOGIC_VECTOR(4 downto 0)
 
@@ -54,7 +51,7 @@ SIGNAL gate_down : STD_LOGIC;
 BEGIN 
 
     uut: controller PORT MAP (
-        s1, s2, clk, override, stop, lot_closed, lot_open, lot_full, gate_up, gate_down
+        s1, s2, clk, override, stop, lot_closed, lot_open, lot_full
     );
 
 CLOCK:

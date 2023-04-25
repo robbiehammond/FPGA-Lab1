@@ -14,11 +14,7 @@ ENTITY controller IS
 
         lot_closed_signal : OUT STD_LOGIC;  -- is parking lot even open
         lot_open_signal : OUT STD_LOGIC;
-        lot_full_signal : OUT STD_LOGIC;
-
-        gate_up : OUT STD_LOGIC;
-        gate_down : OUT STD_LOGIC
-
+        lot_full_signal : OUT STD_LOGIC
         --count : OUT STD_LOGIC_VECTOR(4 downto 0)
 
 
