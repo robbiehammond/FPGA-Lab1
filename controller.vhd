@@ -19,8 +19,11 @@ ENTITY controller IS
         gate_up : OUT STD_LOGIC;
         gate_down : OUT STD_LOGIC;
 
-        count : OUT STD_LOGIC_VECTOR(4 downto 0)
-
+        count_0 : OUT STD_LOGIC;
+        count_1 : OUT STD_LOGIC;
+        count_2 : OUT STD_LOGIC;
+        count_3 : OUT STD_LOGIC;
+        count_4 : OUT STD_LOGIC
 
     );
 END ENTITY;
@@ -70,7 +73,11 @@ constant NUM_BITS : INTEGER := 5;
     SIGNAL s1_clock_count : INTEGER := 0;
     SIGNAL s2_clock_count : INTEGER := 0;
 
+
+
 BEGIN
+    gate_down <= '0';
+    gate_up <= '0';
     alu5 : alu_n PORT MAP(number_cars, car_change, alu_function, alu_out_int);
     reg : reg_5 PORT MAP(alu_out, reg_out_int, clk, regEnable, regClear);
     PROCESS (clk)
@@ -88,10 +95,14 @@ BEGIN
                 s1_clock_count <= 0;
 
             elsif s1 = '1' then
+                if State = Lot_Full then
+                    null;
+
                 -- As implemented, if s1 goes high at all when override is high, that car isn't counted.
-                if override = '1' then 
+                elsif override = '1' then 
                     regEnable <= '0';
                     car_change <= "00000";
+
                 elsif s1_int = '0' then -- if s1 actually changed (not just reading from prev cycle)
                     s1_clock_count <= 0;
                     regEnable <= '1';
@@ -174,7 +185,11 @@ BEGIN
             alu_out <= alu_out_int;
             number_cars_int <= reg_out_int;
             number_cars <= number_cars_int;
-            count <= reg_out_int;
+            count_0 <= (reg_out_int(0));
+            count_1 <= reg_out_int(1);
+            count_2 <= reg_out_int(2);
+            count_3 <= reg_out_int(3);
+            count_4 <= reg_out_int(4);
     END PROCESS;
 END controller_arch;
 

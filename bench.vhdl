@@ -28,7 +28,13 @@ COMPONENT controller
         gate_up : OUT STD_LOGIC;
         gate_down : OUT STD_LOGIC;
 
-        count : OUT STD_LOGIC_VECTOR(4 downto 0)
+        count_0 : OUT STD_LOGIC;
+        count_1 : OUT STD_LOGIC;
+        count_2 : OUT STD_LOGIC;
+        count_3 : OUT STD_LOGIC;
+        count_4 : OUT STD_LOGIC
+
+        -- count : OUT STD_LOGIC_VECTOR(4 downto 0)
 
     );
 END COMPONENT;
@@ -48,13 +54,18 @@ SIGNAL gate_up : STD_LOGIC;
 SIGNAL gate_down : STD_LOGIC;
 
 
-SIGNAL count : STD_LOGIC_VECTOR(4 downto 0);
+-- SIGNAL count : STD_LOGIC_VECTOR(4 downto 0);
+SIGNAL count_0 : STD_LOGIC;
+SIGNAL count_1 : STD_LOGIC;
+SIGNAL count_2 : STD_LOGIC;
+SIGNAL count_3 : STD_LOGIC;
+SIGNAL count_4 : STD_LOGIC;
 
 
 BEGIN 
 
     uut: controller PORT MAP (
-        s1, s2, clk, override, stop, lot_closed, lot_open, lot_full, gate_up, gate_down, count
+        s1, s2, clk, override, stop, lot_closed, lot_open, lot_full, gate_up, gate_down, count_0, count_1, count_2, count_3, count_4
     );
 
 CLOCK:
