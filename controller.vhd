@@ -83,6 +83,9 @@ BEGIN
                 regEnable <= '0';
                 car_change <= "00000";
                 s1_clock_count <= 0;
+                if number_cars = "10011" then
+                    State <= Lot_Full;
+                end if;
 
             elsif s1 = '1' then
                 s1_clock_count <= 0;
