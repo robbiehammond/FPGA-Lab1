@@ -17,9 +17,9 @@ ENTITY controller IS
         lot_full_signal : OUT STD_LOGIC;
 
         gate_up : OUT STD_LOGIC;
-        gate_down : OUT STD_LOGIC;
+        gate_down : OUT STD_LOGIC
 
-        count : OUT STD_LOGIC_VECTOR(4 downto 0)
+        --count : OUT STD_LOGIC_VECTOR(4 downto 0)
 
 
     );
@@ -174,7 +174,7 @@ BEGIN
             alu_out <= alu_out_int;
             number_cars_int <= reg_out_int;
             number_cars <= number_cars_int;
-            count <= reg_out_int;
+            -- count <= reg_out_int;
     END PROCESS;
 END controller_arch;
 
