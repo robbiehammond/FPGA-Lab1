@@ -69,7 +69,7 @@ constant NUM_BITS : INTEGER := 5;
 BEGIN
     alu5 : alu_n PORT MAP(number_cars, car_change, alu_function, alu_out_int);
     reg : reg_5 PORT MAP(alu_out, reg_out_int, clk, regEnable, regClear);
-    PROCESS (clk)
+    PROCESS (rising_edge(clk))
         BEGIN
             if stop = '1' then
                 State <= Lot_Closed;
@@ -84,6 +84,11 @@ BEGIN
                 s1_clock_count <= 0;
 
             elsif s1 = '1' then
+                s1_clock_count <= 0;
+                regEnable <= '1';
+                car_change <= "00001";
+                alu_function <= "110";
+                
                 -- As implemented, if s1 goes high at all when override is high, that car isn't counted.
                 if override = '1' then 
                     regEnable <= '0';
