@@ -69,8 +69,9 @@ constant NUM_BITS : INTEGER := 5;
 BEGIN
     alu5 : alu_n PORT MAP(number_cars, car_change, alu_function, alu_out_int);
     reg : reg_5 PORT MAP(alu_out, reg_out_int, clk, regEnable, regClear);
-    PROCESS (rising_edge(clk))
+    PROCESS (clk)
         BEGIN
+        if rising_edge(clk) then
             if stop = '1' then
                 State <= Lot_Closed;
             elsif stop = '0' then
@@ -176,6 +177,7 @@ BEGIN
             number_cars_int <= reg_out_int;
             number_cars <= number_cars_int;
             -- count <= reg_out_int;
+        end if;
     END PROCESS;
 END controller_arch;
 

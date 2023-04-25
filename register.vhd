@@ -15,12 +15,14 @@ ARCHITECTURE reg5_desc OF reg_5 IS
     SIGNAL amount_int: STD_LOGIC_VECTOR(4 downto 0) := "00000"; -- The amount currently being held
 
 BEGIN
-    process(rising_edge(clk), clear)
+    process(clk, clear)
     begin
-        if enable = '1' then
-            d_out <= d_in;
-        elsif clear = '1' then
-            d_out <= "00000";
+        if (rising_edge(clk)) then
+            if enable = '1' then
+                d_out <= d_in;
+            elsif clear = '1' then
+                d_out <= "00000";
+            end if;
         end if;
     end process;
 END reg5_desc;
