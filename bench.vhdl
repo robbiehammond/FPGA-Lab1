@@ -25,8 +25,8 @@ COMPONENT controller
         lot_open_signal: OUT STD_LOGIC;
         lot_full_signal: OUT STD_LOGIC;
 
-        gate_up : OUT STD_LOGIC;
-        gate_down : OUT STD_LOGIC;
+        gate_in : OUT STD_LOGIC;
+        gate_out : OUT STD_LOGIC;
 
         count_0 : OUT STD_LOGIC;
         count_1 : OUT STD_LOGIC;
@@ -50,8 +50,8 @@ SIGNAL lot_closed : STD_LOGIC;
 SIGNAL lot_open : STD_LOGIC;
 SIGNAL lot_full: STD_LOGIC;
 
-SIGNAL gate_up : STD_LOGIC;
-SIGNAL gate_down : STD_LOGIC;
+SIGNAL gate_in : STD_LOGIC;
+SIGNAL gate_out : STD_LOGIC;
 
 
 -- SIGNAL count : STD_LOGIC_VECTOR(4 downto 0);
@@ -65,7 +65,7 @@ SIGNAL count_4 : STD_LOGIC;
 BEGIN 
 
     uut: controller PORT MAP (
-        s1, s2, clk, override, stop, lot_closed, lot_open, lot_full, gate_up, gate_down, count_0, count_1, count_2, count_3, count_4
+        s1, s2, clk, override, stop, lot_closed, lot_open, lot_full, gate_in, gate_out, count_0, count_1, count_2, count_3, count_4
     );
 
 CLOCK:

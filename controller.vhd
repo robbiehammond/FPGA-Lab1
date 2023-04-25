@@ -16,15 +16,14 @@ ENTITY controller IS
         lot_open_signal : OUT STD_LOGIC;
         lot_full_signal : OUT STD_LOGIC;
 
-        gate_up : OUT STD_LOGIC;
-        gate_down : OUT STD_LOGIC;
+        gate_in : OUT STD_LOGIC;
+        gate_out : OUT STD_LOGIC;
 
         count_0 : OUT STD_LOGIC;
         count_1 : OUT STD_LOGIC;
         count_2 : OUT STD_LOGIC;
         count_3 : OUT STD_LOGIC;
         count_4 : OUT STD_LOGIC
-
     );
 END ENTITY;
 
@@ -76,8 +75,6 @@ constant NUM_BITS : INTEGER := 5;
 
 
 BEGIN
-    gate_down <= '0';
-    gate_up <= '0';
     alu5 : alu_n PORT MAP(number_cars, car_change, alu_function, alu_out_int);
     reg : reg_5 PORT MAP(alu_out, reg_out_int, clk, regEnable, regClear);
     PROCESS (clk)
@@ -93,6 +90,8 @@ BEGIN
                 regEnable <= '0';
                 car_change <= "00000";
                 s1_clock_count <= 0;
+                gate_in <= '0';
+                gate_out <= '0';
 
             elsif s1 = '1' then
                 if State = Lot_Full then
@@ -106,6 +105,7 @@ BEGIN
                 elsif s1_int = '0' then -- if s1 actually changed (not just reading from prev cycle)
                     s1_clock_count <= 0;
                     regEnable <= '1';
+                    gate_in <= '1';
                     car_change <= "00001";
                     alu_function <= "110";
 
@@ -135,6 +135,7 @@ BEGIN
 
             elsif s2 = '1' then
                 if s2_int = '0' then -- if s2 actually changed
+                    gate_out <= '1';
                     regEnable <= '1';
                     car_change <= "00001";
                     alu_function <= "111";
