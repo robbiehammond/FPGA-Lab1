@@ -69,7 +69,12 @@ constant NUM_BITS : INTEGER := 5;
 BEGIN
     alu5 : alu_n PORT MAP(number_cars, car_change, alu_function, alu_out_int);
     reg : reg_5 PORT MAP(alu_out, reg_out_int, clk, regEnable, regClear);
-    PROCESS (clk)
+    s1_int <= s1;
+    s2_int <= s2;
+    alu_out <= alu_out_int;
+    number_cars_int <= reg_out_int;
+    number_cars <= number_cars_int;
+    PROCESS (clk, s1, s2)
         BEGIN
             if stop = '1' then
                 State <= Lot_Closed;
@@ -165,11 +170,6 @@ BEGIN
                     lot_full_signal <= '0';
                 when others => 
             end case;
-            s1_int <= s1;
-            s2_int <= s2;
-            alu_out <= alu_out_int;
-            number_cars_int <= reg_out_int;
-            number_cars <= number_cars_int;
             -- count <= reg_out_int;
     END PROCESS;
 END controller_arch;

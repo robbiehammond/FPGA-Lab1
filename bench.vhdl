@@ -55,12 +55,12 @@ BEGIN
     );
 
 CLOCK:
-clk <=  '1' after 10 ns when clk = '0' else
-        '0' after 10 ns when clk = '1';
+clk <=  '1' after 20 ns when clk = '0' else
+        '0' after 20 ns when clk = '1';
 
 SIGNAL1:
-s1 <=  '1' after 40 ns when s1 = '0' else
-        '0' after 40 ns when s1 = '1';
+s1 <=  '1' after 35 ns when s1 = '0' else
+        '0' after 35 ns when s1 = '1';
 
 
 PROCESS
